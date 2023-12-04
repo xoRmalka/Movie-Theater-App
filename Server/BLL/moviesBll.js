@@ -11,6 +11,9 @@ async function getAllSchedules() {
 async function getMovieById(id) {
   return movieDal.getMovieById(id);
 }
+async function getScheduleById(id) {
+  return movieDal.getScheduleById(id);
+}
 
 async function getAllMoviesWithSchedules() {
   const allMovies = await movieDal.getAllMovies();
@@ -60,4 +63,5 @@ module.exports = {
   getAllSchedules,
   getMovieById,
   getAllMoviesWithSchedules,
+  getScheduleById,
 };
