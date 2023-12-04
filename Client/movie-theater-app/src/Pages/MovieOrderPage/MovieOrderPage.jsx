@@ -61,7 +61,7 @@ export default function MovieOrderPage() {
         seatsTaken={scheduleData.seats_taken}
         onSeatSelect={handleSeatSelect}
       />
-      <SeatOrder selectedSeat={selectedSeat} scheduleData={scheduleData} scheduleUrl={scheduleUrl}/>
+      <SeatOrder selectedSeat={selectedSeat} scheduleData={scheduleData} scheduleUrl={scheduleUrl} movie={movie} date={formatDate(schedule.date)}/>
     </div>
   );
 }

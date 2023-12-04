@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./SeatMap.css";
 import Screen from "./Screen/Screen";
 
-const SeatMap = ({ seatsTaken, onSeatSelect }) => {
+export default function SeatMap({ seatsTaken, onSeatSelect }) {
   const totalRows = 10;
   const totalSeatsPerRow = 10;
 
@@ -24,7 +24,7 @@ const SeatMap = ({ seatsTaken, onSeatSelect }) => {
       onSeatSelect({ row: rowIndex + 1, seat: seatIndex + 1 });
     }
   };
-
+  
   return (
     <div className="SeatMapContainer">
       <Screen />
@@ -63,6 +63,4 @@ const SeatMap = ({ seatsTaken, onSeatSelect }) => {
       <br />
     </div>
   );
-};
-
-export default SeatMap;
+}

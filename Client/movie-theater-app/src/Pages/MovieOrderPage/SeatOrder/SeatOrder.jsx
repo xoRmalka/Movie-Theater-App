@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosUtils from "../../../Utils/axiosUtils";
+import SuccessModal from "./Modals/SuccessModal/SuccessModal";
+import SeatTakenModal from "./Modals/SeatTakenModal/SeatTakenModal";
+import ErrorModal from "./Modals/ErrorModal/ErrorModal";
 
-export default function SeatOrder({ selectedSeat, scheduleData, scheduleUrl }) {
+export default function SeatOrder({
+  selectedSeat,
+  scheduleData,
+  scheduleUrl,
+  movie,
+  date,
+}) {
   const [seat, setSeat] = useState(null);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
@@ -29,17 +38,33 @@ export default function SeatOrder({ selectedSeat, scheduleData, scheduleUrl }) {
     }
   };
 
-  const handleOrderMore = () => {
+  const handleSelectOtherSeat = useCallback(() => {
     window.location.reload();
-  };
+  });
 
-  const handleBackToMovies = () => {
+  const handleBackToMovies = useCallback(() => {
     navigate(`/`);
-  };
+  });
 
   return (
     <div>
-
+      {success === true && (
+        <SuccessModal
+          movieInfo={movie}
+          onSelectOtherSeat={handleSelectOtherSeat}
+          onBackToMovies={handleBackToMovies}
+          date={date}
+        />
+      )}
+      {success === false && (
+        <SeatTakenModal
+          onSelectOtherSeat={handleSelectOtherSeat}
+          onBackToMovies={handleBackToMovies}
+        />
+      )}
+      {error && (
+        <ErrorModal errorMessage={error} onBackToMovies={handleBackToMovies} />
+      )}
 
       {seat ? (
         <div>
