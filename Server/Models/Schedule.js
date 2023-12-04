@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const seatTakenSchema = new mongoose.Schema(
   {
     row: Number,
-    seatNumber: Number,
+    seat: Number,
   },
   { _id: false }
 );
