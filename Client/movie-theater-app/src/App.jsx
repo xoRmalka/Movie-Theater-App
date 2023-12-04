@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import HomePage from "./Pages/HomePage/HomePage";
-import MovieOrderPage from "./Pages/HomePage/MovieOrderPage/MovieOrderPage";
+import MovieOrderPage from "./Pages/MovieOrderPage/MovieOrderPage";
 
 function App() {
   return (

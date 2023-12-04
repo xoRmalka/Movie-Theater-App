@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./SeatMap.css";
 import Screen from "./Screen/Screen";
 
-const SeatMap = ({ seatsTaken }) => {
-  const totalRows = 10; 
-  const totalSeatsPerRow = 10; 
+const SeatMap = ({ seatsTaken, onSeatSelect }) => {
+  const totalRows = 10;
+  const totalSeatsPerRow = 10;
 
   // Initialize a 2D array to represent the seat map
   const seatMap = Array.from({ length: totalRows }, () =>
@@ -21,12 +21,12 @@ const SeatMap = ({ seatsTaken }) => {
   const handleSeatClick = (rowIndex, seatIndex) => {
     if (!seatMap[rowIndex][seatIndex]) {
       setSelectedSeat({ row: rowIndex + 1, seat: seatIndex + 1 });
+      onSeatSelect({ row: rowIndex + 1, seat: seatIndex + 1 });
     }
   };
 
   return (
     <div className="SeatMapContainer">
-      <h3>Seat Map</h3>
       <Screen />
       <table>
         <tbody>
@@ -61,13 +61,6 @@ const SeatMap = ({ seatsTaken }) => {
         </tbody>
       </table>
       <br />
-      {selectedSeat ? (
-        <div>
-          <span>Selected Seat:</span>
-          <br />
-          <span>{`Row: ${selectedSeat?.row} Seat: ${selectedSeat?.seat}`}</span>
-        </div>
-      ) : null}
     </div>
   );
 };

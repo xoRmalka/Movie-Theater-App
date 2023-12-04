@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function MovieOrderBtn({ data }) {
+export default function MovieOrderBtn({ data, movie }) {
   const { date, schedule_id } = data;
+  
 
   const navigate = useNavigate();
 
   const orderMovie = () => {
-    navigate(`/movie_order/${schedule_id}`);
+    navigate(`/movie_order/${schedule_id}`, { state: { schedule: data, movie: movie } });
   };
+
 
   const [formattedTime, setFormattedTime] = useState("");
 
