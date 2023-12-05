@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MovieOrderBtn from "./MovieOrderBtn/MovieOrderBtn";
 import { v4 as uuidv4 } from "uuid";
 import "./Movie.css";
