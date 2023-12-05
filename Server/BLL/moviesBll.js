@@ -44,6 +44,27 @@ async function updateMovie(id, obj) {
   }
 }
 
+async function deleteMovie(id, token) {
+  try {
+    // Verify admin status
+    const { isAdmin } = await verifyAdmin(token);
+
+    if (!isAdmin) {
+      throw new Error("Unauthorized: User is not an admin");
+    }
+
+    // Delete the movie
+    const deletedMovie = await movieDal.deleteMovieById(id);
+
+    // Delete all schedules with the same movie_id
+    await movieDal.deleteSchedulesByMovieId(id);
+
+    return deletedMovie;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Schedules
 async function getAllSchedules() {
   return movieDal.getAllSchedules();
@@ -137,4 +158,5 @@ module.exports = {
   getScheduleById,
   updateSchedule,
   updateMovie,
+  deleteMovie,
 };

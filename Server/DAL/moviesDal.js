@@ -28,6 +28,20 @@ async function updateMovieById(id, updatedMovieData) {
   }
 }
 
+async function deleteMovieById(id) {
+  try {
+    const deletedMovie = await Movie.findByIdAndDelete(id);
+
+    if (!deletedMovie) {
+      throw new Error("Movie not found");
+    }
+
+    return deletedMovie;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Schedules
 
 async function getAllSchedules() {
@@ -54,6 +68,16 @@ async function updateSchedule(id, updatedSchedule) {
   }
 }
 
+async function deleteSchedulesByMovieId(movieId) {
+  try {
+    const deletedSchedules = await Schedule.deleteMany({ movie_id: movieId });
+
+    return deletedSchedules;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getAllMovies,
   getAllSchedules,
@@ -61,4 +85,6 @@ module.exports = {
   getScheduleById,
   updateSchedule,
   updateMovieById,
+  deleteMovieById,
+  deleteSchedulesByMovieId,
 };

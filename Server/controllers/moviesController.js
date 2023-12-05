@@ -51,6 +51,19 @@ router.put("/movies/:id", async (req, res) => {
   }
 });
 
+// Delete a movie schedule by ID
+router.delete("/movies/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { authorization: token } = req.headers;
+
+    const deletedMovie = await movieBll.deleteMovie(id, token);
+
+    res.json(deletedMovie);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
 
 // Schedules
 
