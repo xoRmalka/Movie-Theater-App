@@ -10,6 +10,24 @@ async function getMovieById(id) {
   return Movie.findById(id);
 }
 
+async function updateMovieById(id, updatedMovieData) {
+  try {
+    const existingMovie = await Movie.findById(id);
+
+    if (!existingMovie) {
+      throw new Error("Movie not found");
+    }
+
+    // Update the existing movie with the new data
+    existingMovie.set(updatedMovieData);
+
+    // Save the updated movie
+    const updatedMovie = await existingMovie.save();
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Schedules
 
 async function getAllSchedules() {
@@ -42,4 +60,5 @@ module.exports = {
   getMovieById,
   getScheduleById,
   updateSchedule,
+  updateMovieById,
 };

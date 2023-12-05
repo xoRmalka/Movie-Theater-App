@@ -4,7 +4,7 @@ const movieBll = require("../BLL/moviesBll");
 const router = express.Router();
 
 // Get all movies with schedules
-router.get("/movies", async (req, res) => {
+router.get("/movies-schedules", async (req, res) => {
   try {
     const movies = await movieBll.getAllMoviesWithSchedules();
     res.json(movies);
@@ -14,6 +14,16 @@ router.get("/movies", async (req, res) => {
 });
 
 // Movies
+
+// Get all Movies
+router.get("/movies", async (req, res) => {
+  try {
+    const movies = await movieBll.getAllMovies();
+    res.json(movies);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 // Get a specific movie by ID
 router.get("/movies/:id", async (req, res) => {
@@ -28,6 +38,19 @@ router.get("/movies/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// Update a movie schedule by ID
+router.put("/movies/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedMovieData = req.body;
+    const updatedMovie = await movieBll.updateMovie(id, updatedMovieData);
+    res.json(updatedMovie);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 
 // Schedules
 
