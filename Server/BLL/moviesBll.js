@@ -43,6 +43,19 @@ async function updateMovie(id, obj, token) {
   }
 }
 
+async function createMovie(obj, token) {
+  try {
+    const { isAdmin } = await verifyAdmin(token);
+    if (isAdmin) {
+      return movieDal.createMovie(obj);
+    } else {
+      throw new Error("Unauthorized: User is not an admin");
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function deleteMovie(id, token) {
   try {
     // Verify admin status
@@ -158,4 +171,5 @@ module.exports = {
   updateSchedule,
   updateMovie,
   deleteMovie,
+  createMovie,
 };

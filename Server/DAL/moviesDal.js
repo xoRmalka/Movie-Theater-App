@@ -28,6 +28,16 @@ async function updateMovieById(id, updatedMovieData) {
   }
 }
 
+async function createMovie(movieData) {
+  try {
+    const newMovie = new Movie(movieData);
+    const createdMovie = await newMovie.save();
+    return createdMovie;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function deleteMovieById(id) {
   try {
     const deletedMovie = await Movie.findByIdAndDelete(id);
@@ -87,4 +97,5 @@ module.exports = {
   updateMovieById,
   deleteMovieById,
   deleteSchedulesByMovieId,
+  createMovie,
 };

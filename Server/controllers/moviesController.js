@@ -56,7 +56,19 @@ router.put("/movies/:id", async (req, res) => {
   }
 });
 
-// Delete a movie schedule by ID
+// Create a movie
+router.post("/movies", async (req, res) => {
+  try {
+    const { authorization: token } = req.headers;
+    const newMovieData = req.body;
+    const newMovie = await movieBll.createMovie(newMovieData, token);
+    res.json(newMovie);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
+// Delete a movie and his schedule by ID
 router.delete("/movies/:id", async (req, res) => {
   try {
     const { id } = req.params;
