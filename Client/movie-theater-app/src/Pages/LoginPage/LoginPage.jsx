@@ -12,7 +12,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await axiosUtils.createItem(
-        "http://localhost:8001/admin/login",
+        "http://localhost:8001/users/login",
         {
           username,
           password,

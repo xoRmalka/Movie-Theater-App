@@ -27,12 +27,11 @@ export default function EditMoviePage() {
     try {
       const token = localStorage.getItem("adminToken");
 
-      movie.token = token;
-
       await axiosUtils.updateItem(
         "http://localhost:8001/movies",
         movie._id,
-        movie
+        movie,
+        token
       );
     } catch (error) {
       console.log("Error updating movie: ", error);
@@ -42,7 +41,6 @@ export default function EditMoviePage() {
 
   return (
     <div>
-      EditMoviePage
       <div>
         <h2>Edit Movie: {movie.name}</h2>
         <label>
