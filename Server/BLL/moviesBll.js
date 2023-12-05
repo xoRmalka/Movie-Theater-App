@@ -1,4 +1,24 @@
 const movieDal = require("../dal/moviesDal");
+const axios = require("axios");
+
+// Admin
+async function verifyAdmin(token) {
+  try {
+    const response = await axios.get(
+      "http://localhost:8001/users/verify/admin",
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+
+    // Check if the user is an admin
+    return { isAdmin: response.data.admin };
+  } catch (error) {
+    return error.response.data;
+  }
+}
 
 // Movies
 async function getAllMovies() {
@@ -7,6 +27,21 @@ async function getAllMovies() {
 
 async function getMovieById(id) {
   return movieDal.getMovieById(id);
+}
+
+async function updateMovie(id, obj) {
+  try {
+    const { isAdmin } = await verifyAdmin(obj.token);
+    if (isAdmin) {
+      delete obj.token;
+      return movieDal.updateMovieById(id, obj);
+    }
+    if (!isAdmin) {
+      throw error(error.response.data);
+    }
+  } catch (error) {
+    throw error;
+  }
 }
 
 // Schedules
@@ -101,4 +136,5 @@ module.exports = {
   getAllMoviesWithSchedules,
   getScheduleById,
   updateSchedule,
+  updateMovie,
 };
