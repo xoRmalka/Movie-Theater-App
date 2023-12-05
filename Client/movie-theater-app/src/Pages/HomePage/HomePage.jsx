@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { DatePicker, Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+
 import axiosUtils from "../../Utils/axiosUtils";
 import { v4 as uuidv4 } from "uuid";
 import Movie from "./Movie/Movie";
@@ -10,8 +13,10 @@ const defaultStartDate = dayjs(); // Current date and time
 const defaultEndDate = dayjs().add(7, "day"); // End date is one week from now
 
 export default function HomePage() {
-  const moviesUrl = "http://localhost:8001/movies/";
+  const moviesUrl = "http://localhost:8001/movies-schedules/";
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
+
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [sortOrder, setSortOrder] = useState("desc");
 
@@ -70,6 +75,9 @@ export default function HomePage() {
     handleSorting(filteredMovies, newSortOrder);
   };
 
+  const login = () => {
+    navigate(`/login`);
+  };
   return (
     <div>
       <h1>Movie Theater App</h1>
@@ -81,6 +89,9 @@ export default function HomePage() {
       <Button onClick={handleSort}>{`Sort ${
         sortOrder === "asc" ? "Ascending" : "Descending"
       }`}</Button>
+      <Button onClick={login}>
+        <UserOutlined />
+      </Button>{" "}
       <div>
         {filteredMovies.map((movie) => (
           <Movie key={uuidv4()} data={movie} />
