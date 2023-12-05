@@ -3,8 +3,11 @@ import { DatePicker, Button } from "antd";
 import axiosUtils from "../../Utils/axiosUtils";
 import { v4 as uuidv4 } from "uuid";
 import Movie from "./Movie/Movie";
+import dayjs from "dayjs";
 
 const { RangePicker } = DatePicker;
+const defaultStartDate = dayjs(); // Current date and time
+const defaultEndDate = dayjs().add(7, "day"); // End date is one week from now
 
 export default function HomePage() {
   const moviesUrl = "http://localhost:8001/movies/";
@@ -22,6 +25,11 @@ export default function HomePage() {
   useEffect(() => {
     getMovies();
   }, []);
+
+  useEffect(() => {
+    // Default date range
+    handleDateRangeChange([defaultStartDate, defaultEndDate]);
+  }, [movies, defaultStartDate, defaultEndDate]);
 
   const handleDateRangeChange = (dates) => {
     if (dates && dates.length === 2) {
@@ -65,7 +73,11 @@ export default function HomePage() {
   return (
     <div>
       <h1>Movie Theater App</h1>
-      <RangePicker format="DD/MM/YYYY" onChange={handleDateRangeChange} />
+      <RangePicker
+        format="DD/MM/YYYY"
+        onChange={handleDateRangeChange}
+        defaultValue={[defaultStartDate, defaultEndDate]}
+      />
       <Button onClick={handleSort}>{`Sort ${
         sortOrder === "asc" ? "Ascending" : "Descending"
       }`}</Button>
