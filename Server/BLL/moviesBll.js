@@ -77,7 +77,7 @@ async function getAllMoviesWithSchedules() {
     const movieId = movie._id.toString();
     return Object.entries(schedulesByMovieAndDate[movieId] || {}).map(
       ([date, schedules]) => ({
-        date,
+        date: new Date(date).toLocaleDateString("en-GB"), // Format date as "dd/mm/yyyy"
         _id: movieId,
         title: movie.title,
         image: movie.image,
