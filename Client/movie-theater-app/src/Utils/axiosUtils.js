@@ -4,7 +4,13 @@ const getAllItems = (url) => axios.get(url);
 
 const getItem = (url, id) => axios.get(`${url}/${id}`);
 
-const createItem = (url, obj) => axios.post(url, obj);
+const createItem = (url, obj, token) => {
+  return axios.post(url, obj, {
+    headers: {
+      authorization: token,
+    },
+  });
+};
 
 const updateItem = (url, id, obj, token) => {
   return axios.put(`${url}/${id}`, obj, {

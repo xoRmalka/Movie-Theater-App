@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosUtils from "../../../../Utils/axiosUtils";
 
-export default function EditMoviePage() {
-  const location = useLocation();
+export default function AddMoviePage() {
   const navigate = useNavigate();
 
-  const [movie, setMovie] = useState(
-    location.state?.data || {
-      title: "",
-      description: "",
-      image: "",
-      duration: "",
-    }
-  );
+  const [movie, setMovie] = useState({
+    title: "",
+    description: "",
+    image: "",
+    duration: "",
+  });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,18 +20,12 @@ export default function EditMoviePage() {
     }));
   };
 
-  const updateState = async () => {
+  const addMovie = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-
-      await axiosUtils.updateItem(
-        "http://localhost:8001/movies",
-        movie._id,
-        movie,
-        token
-      );
+      await axiosUtils.createItem("http://localhost:8001/movies", movie, token);
     } catch (error) {
-      console.log("Error updating movie: ", error);
+      console.log("Error creating movie: ", error);
     }
     navigate("/admin/movies");
   };
@@ -42,7 +33,7 @@ export default function EditMoviePage() {
   return (
     <div>
       <div>
-        <h2>Edit Movie: {movie.title}</h2>
+        <h2>Edit Movie: {movie.name}</h2>
         <label>
           Title:
           <input
@@ -81,7 +72,7 @@ export default function EditMoviePage() {
         </label>
         <br />
         <br />
-        <button onClick={updateState}>Update</button>{" "}
+        <button onClick={addMovie}>Add</button>{" "}
         <button onClick={() => navigate("/admin/movies")}>Cancel</button>
       </div>
     </div>
