@@ -29,11 +29,10 @@ async function getMovieById(id) {
   return movieDal.getMovieById(id);
 }
 
-async function updateMovie(id, obj) {
+async function updateMovie(id, obj, token) {
   try {
-    const { isAdmin } = await verifyAdmin(obj.token);
+    const { isAdmin } = await verifyAdmin(token);
     if (isAdmin) {
-      delete obj.token;
       return movieDal.updateMovieById(id, obj);
     }
     if (!isAdmin) {

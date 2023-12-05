@@ -43,8 +43,13 @@ router.get("/movies/:id", async (req, res) => {
 router.put("/movies/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    const { authorization: token } = req.headers;
     const updatedMovieData = req.body;
-    const updatedMovie = await movieBll.updateMovie(id, updatedMovieData);
+    const updatedMovie = await movieBll.updateMovie(
+      id,
+      updatedMovieData,
+      token
+    );
     res.json(updatedMovie);
   } catch (e) {
     res.status(500).json(e);
