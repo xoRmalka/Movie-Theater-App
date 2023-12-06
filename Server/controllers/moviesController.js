@@ -94,6 +94,18 @@ router.get("/schedules", async (req, res) => {
   }
 });
 
+// Create a schedule
+router.post("/schedules", async (req, res) => {
+  try {
+    const { authorization: token } = req.headers;
+    const newScheduleData = req.body;
+    const newSchedule = await movieBll.createSchedule(newScheduleData, token);
+    res.json(newSchedule);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 // Update a specific schedule by ID
 router.put("/schedules/:id", async (req, res) => {
   try {

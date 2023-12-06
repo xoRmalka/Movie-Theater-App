@@ -1,4 +1,4 @@
-const movieDal = require("../dal/moviesDal");
+const movieDal = require("../DAL/moviesDal");
 const axios = require("axios");
 
 // Admin
@@ -101,6 +101,22 @@ async function deleteSchedule(id, token) {
   }
 }
 
+async function createSchedule(scheduleData, token) {
+  try {
+    const { isAdmin } = await verifyAdmin(token);
+
+    if (!isAdmin) {
+      throw new Error("Unauthorized: User is not an admin");
+    }
+
+    const createdSchedule = await movieDal.createSchedule(scheduleData);
+
+    return createdSchedule;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function updateSchedule(id, selectedSeat) {
   try {
     const schedule = await movieDal.getScheduleById(id);
@@ -191,4 +207,5 @@ module.exports = {
   deleteMovie,
   createMovie,
   deleteSchedule,
+  createSchedule,
 };

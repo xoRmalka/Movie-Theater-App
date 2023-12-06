@@ -62,6 +62,16 @@ async function getScheduleById(id) {
   return Schedule.findById(id);
 }
 
+async function createSchedule(scheduleData) {
+  try {
+    const newSchedule = new Schedule(scheduleData);
+    const createdSchedule = await newSchedule.save();
+    return createdSchedule;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function updateSchedule(id, updatedSchedule) {
   try {
     const existingSchedule = await Schedule.findById(id);
@@ -113,4 +123,5 @@ module.exports = {
   deleteSchedulesByMovieId,
   createMovie,
   deleteScheduleById,
+  createSchedule,
 };
