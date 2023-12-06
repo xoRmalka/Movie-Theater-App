@@ -15,7 +15,7 @@ export default function SchedulePage() {
   const handleDateChange = (date) => {
     if (date) {
       const formattedDate = date.format("YYYY-MM-DD");
-      setSelectedDate(date.format("DD/MM/YYYY"));
+      setSelectedDate(formattedDate);
 
       const filtered = schedules
         .filter((schedule) => schedule.date_time.startsWith(formattedDate))
@@ -47,6 +47,7 @@ export default function SchedulePage() {
   };
 
   const getSchedules = async () => {
+    console.log("getSchedules");
     const { data } = await axiosUtils.getAllItems(`${url}/schedules`);
     setSchedules(data);
   };
@@ -69,6 +70,7 @@ export default function SchedulePage() {
   };
 
   const addSchedule = () => {
+    console.log(selectedDate);
     navigate("/admin/schedule/add", {
       state: {
         selectedDate,
@@ -88,7 +90,7 @@ export default function SchedulePage() {
           placeholder="Select a date"
         />
         <div>
-          {filteredSchedules.length >= 1 && (
+          {selectedDate && (
             <Button onClick={addSchedule}>Create Schedule</Button>
           )}
           {selectedDate && (
