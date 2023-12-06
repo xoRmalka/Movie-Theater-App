@@ -78,6 +78,20 @@ async function updateSchedule(id, updatedSchedule) {
   }
 }
 
+async function deleteScheduleById(scheduleId) {
+  try {
+    const deletedSchedule = await Schedule.findByIdAndDelete(scheduleId);
+
+    if (!deletedSchedule) {
+      throw new Error(`Schedule with ID ${scheduleId} not found`);
+    }
+
+    return deletedSchedule;
+  } catch (error) {
+    throw new Error(`Error deleting schedule: ${error.message}`);
+  }
+}
+
 async function deleteSchedulesByMovieId(movieId) {
   try {
     const deletedSchedules = await Schedule.deleteMany({ movie_id: movieId });
@@ -98,4 +112,5 @@ module.exports = {
   deleteMovieById,
   deleteSchedulesByMovieId,
   createMovie,
+  deleteScheduleById,
 };

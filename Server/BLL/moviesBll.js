@@ -86,6 +86,21 @@ async function getScheduleById(id) {
   return movieDal.getScheduleById(id);
 }
 
+async function deleteSchedule(id, token) {
+  try {
+    const { isAdmin } = await verifyAdmin(token);
+
+    if (!isAdmin) {
+      throw new Error("Unauthorized: User is not an admin");
+    }
+
+    const deletedSchedule = await movieDal.deleteScheduleById(id);
+    return deletedSchedule;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function updateSchedule(id, selectedSeat) {
   try {
     const schedule = await movieDal.getScheduleById(id);
@@ -152,8 +167,11 @@ async function getAllMoviesWithSchedules() {
         description: movie.description,
         duration: movie.duration,
         schedules: schedules.map((schedule) => ({
-          date: schedule.date_time,
+          date: schedule.date_time.toISOString(),
           schedule_id: schedule._id,
+          end_time: new Date(
+            schedule.date_time.getTime() + movie.duration * 60000
+          ).toISOString(),
         })),
       })
     );
@@ -172,4 +190,5 @@ module.exports = {
   updateMovie,
   deleteMovie,
   createMovie,
+  deleteSchedule,
 };

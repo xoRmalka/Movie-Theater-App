@@ -106,6 +106,19 @@ router.put("/schedules/:id", async (req, res) => {
   }
 });
 
+router.delete("/schedules/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { authorization: token } = req.headers;
+
+    const deleteSchedule = await movieBll.deleteSchedule(id, token);
+
+    res.json(deleteSchedule);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 // Get a specific schedule by ID
 router.get("/schedules/:id", async (req, res) => {
   try {
