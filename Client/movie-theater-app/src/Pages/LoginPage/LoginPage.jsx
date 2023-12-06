@@ -1,8 +1,8 @@
-// login page.jsx
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import axiosUtils from "../../Utils/axiosUtils";
 import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -24,14 +24,18 @@ const Login = () => {
       localStorage.setItem("adminToken", data.token);
       navigate("/admin/movies");
     } catch (error) {
-      // Handle login failure
       console.error(error.response.data.message);
     }
   };
 
+  const handleBack = () => {
+    navigate("/");
+  };
+
   return (
-    <div style={{ backgroundColor: "white", borderRadius: 4, width: "800px" }}>
+    <div className="container">
       <Form
+        className="form"
         name="basic"
         labelCol={{
           span: 8,
@@ -49,6 +53,7 @@ const Login = () => {
         autoComplete="off"
       >
         <Form.Item
+          className="form-item"
           id="username"
           label="Username"
           name="username"
@@ -59,10 +64,14 @@ const Login = () => {
             },
           ]}
         >
-          <Input onChange={(e) => setUsername(e.target.value)} />
+          <Input
+            onChange={(e) => setUsername(e.target.value)}
+            autoComplete="username" 
+          />
         </Form.Item>
 
         <Form.Item
+          className="form-item"
           id="Password"
           label="Password"
           name="password"
@@ -73,10 +82,13 @@ const Login = () => {
             },
           ]}
         >
-          <Input.Password onChange={(e) => setPassword(e.target.value)} />
+          <Input.Password
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password" 
+          />
         </Form.Item>
-
         <Form.Item
+          className="button-group"
           wrapperCol={{
             offset: 8,
             span: 16,
@@ -84,6 +96,9 @@ const Login = () => {
         >
           <Button type="primary" htmlType="submit">
             Login
+          </Button>
+          <Button style={{ marginLeft: 8 }} onClick={handleBack}>
+            Back
           </Button>
         </Form.Item>
       </Form>
