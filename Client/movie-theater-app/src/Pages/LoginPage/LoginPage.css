@@ -1,0 +1,25 @@
+.container {
+  background-color: white;
+  border-radius: 4px;
+  width: 400px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.form-item {
+  margin-bottom: 16px;
+}
+
+.button-group {
+  justify-content: space-between;
+}
+
+.button-group button {
+  flex: 1;
+  margin-right: 8px;
+}
