@@ -1,0 +1,36 @@
+.table-container {
+  margin: auto;
+  overflow: auto;
+  text-align: center;
+}
+
+table {
+  text-align: center;
+  margin: auto;
+
+  max-width: 396px;
+  max-height: 362px;
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+td.is-taken {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+td.is-selected {
+  background-color: orange;
+}
+.screen {
+  max-width: 450px;
+  margin: auto;
+}
