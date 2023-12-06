@@ -5,8 +5,8 @@ export default function MovieSelect({ schedule, movies, handleMovieChange }) {
     <>
       <label>
         Select Movie:{" "}
-        <select value={schedule.movie_id} onChange={handleMovieChange}>
-          <option disabled={schedule.movie_id !== null} value="">
+        <select value={schedule.movie_id || ""} onChange={handleMovieChange}>
+          <option disabled={schedule.movie_id != ""} value="">
             Select a Movie
           </option>
           {movies.map((movie) => (
