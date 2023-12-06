@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import formatDate from "../../../../Utils/dateUtils";
 
 export default function Movie(props) {
   const { schedule, onDelete } = props;
@@ -7,24 +8,10 @@ export default function Movie(props) {
   const [formattedTime, setFormattedTime] = useState("");
   const [formattedEndTime, setFormattedEndTime] = useState("");
 
-  const formatDate = (dateString) => {
-    const parsedDate = new Date(dateString);
-
-    if (isNaN(parsedDate.getTime())) {
-      return "";
-    } else {
-      const options = { hour: "2-digit", minute: "2-digit", hour12: false };
-      return parsedDate.toLocaleTimeString("en-US", {
-        ...options,
-        timeZone: "UTC",
-      });
-    }
-  };
-
   useEffect(() => {
-    setFormattedTime(formatDate(schedule.date_time));
-    setFormattedEndTime(formatDate(schedule.endDate));
-  }, [schedule.date_time, schedule.endDate]);
+    setFormattedTime(formatDate.formatDate(schedule.date_time));
+    setFormattedEndTime(formatDate.formatDate(schedule.end_date));
+  }, [schedule.date_time, schedule.end_date]);
 
   const handleDelete = () => {
     onDelete(schedule._id);

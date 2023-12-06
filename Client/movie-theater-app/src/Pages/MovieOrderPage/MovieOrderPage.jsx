@@ -39,9 +39,12 @@ export default function MovieOrderPage() {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
+      timeZone: "UTC",
     };
 
-    return new Intl.DateTimeFormat("en-US", options).format(new Date(dateString));
+    return new Intl.DateTimeFormat("en-US", options).format(
+      new Date(dateString)
+    );
   };
 
   return (
@@ -61,7 +64,13 @@ export default function MovieOrderPage() {
         seatsTaken={scheduleData.seats_taken}
         onSeatSelect={handleSeatSelect}
       />
-      <SeatOrder selectedSeat={selectedSeat} scheduleData={scheduleData} scheduleUrl={scheduleUrl} movie={movie} date={formatDate(schedule.date)}/>
+      <SeatOrder
+        selectedSeat={selectedSeat}
+        scheduleData={scheduleData}
+        scheduleUrl={scheduleUrl}
+        movie={movie}
+        date={formatDate(schedule.date)}
+      />
     </div>
   );
 }
