@@ -33,7 +33,7 @@ export default function AddMoviePage() {
   return (
     <div>
       <div>
-        <h2>Edit Movie: {movie.name}</h2>
+        <h2>Add Movie: </h2>
         <label>
           Title:
           <input
