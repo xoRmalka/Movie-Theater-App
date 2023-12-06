@@ -47,7 +47,6 @@ export default function SchedulePage() {
   };
 
   const getSchedules = async () => {
-    console.log("getSchedules");
     const { data } = await axiosUtils.getAllItems(`${url}/schedules`);
     setSchedules(data);
   };
@@ -70,7 +69,6 @@ export default function SchedulePage() {
   };
 
   const addSchedule = () => {
-    console.log(selectedDate);
     navigate("/admin/schedule/add", {
       state: {
         selectedDate,
