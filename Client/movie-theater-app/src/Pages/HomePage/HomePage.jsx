@@ -76,7 +76,12 @@ export default function HomePage() {
   };
 
   const login = () => {
-    navigate(`/login`);
+    const token = localStorage.getItem("adminToken");
+    if (token) {
+      navigate(`/admin/movies`);
+    } else {
+      navigate(`/login`);
+    }
   };
   return (
     <div>
