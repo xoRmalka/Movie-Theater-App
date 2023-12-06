@@ -15,7 +15,7 @@ export default function Movie({ data, onDelete }) {
 
   return (
     <div className="movie-container" style={{ border: "1px solid purple" }}>
-      <h2>{title},</h2>
+      <h2>{title}</h2>
       <img src={image} />
       <br />
       <button onClick={editMovie}>Edit</button>{" "}
