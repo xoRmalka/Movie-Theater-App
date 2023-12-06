@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosUtils from "../../../Utils/axiosUtils";
 import { useNavigate } from "react-router-dom";
-import { DatePicker, Space, List } from "antd";
+import { DatePicker, Space, List, Button } from "antd";
 import Movie from "./Movie/Movie";
 
 export default function SchedulePage() {
@@ -13,9 +13,10 @@ export default function SchedulePage() {
   const navigate = useNavigate();
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
     if (date) {
       const formattedDate = date.format("YYYY-MM-DD");
+      setSelectedDate(date.format("DD/MM/YYYY"));
+
       const filtered = schedules
         .filter((schedule) => schedule.date_time.startsWith(formattedDate))
         .sort((a, b) => (a.date_time > b.date_time ? 1 : -1));
@@ -29,13 +30,14 @@ export default function SchedulePage() {
         return {
           ...schedule,
           movie,
-          endDate: endDate.toISOString(),
+          end_date: endDate.toISOString(),
         };
       });
 
       setFilteredSchedules(schedulesWithMovies);
     } else {
       setFilteredSchedules([]);
+      setSelectedDate(null);
     }
   };
 
@@ -66,6 +68,16 @@ export default function SchedulePage() {
     );
   };
 
+  const addSchedule = () => {
+    navigate("/admin/schedule/add", {
+      state: {
+        selectedDate,
+        movies,
+        filteredSchedules,
+      },
+    });
+  };
+
   return (
     <div>
       <h2>Pick a date of schedules</h2>
@@ -76,6 +88,9 @@ export default function SchedulePage() {
           placeholder="Select a date"
         />
         <div>
+          {filteredSchedules.length >= 1 && (
+            <Button onClick={addSchedule}>Create Schedule</Button>
+          )}
           {selectedDate && (
             <List
               dataSource={filteredSchedules}
