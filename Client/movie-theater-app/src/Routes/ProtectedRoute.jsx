@@ -1,11 +1,11 @@
-// ProtectedRoute.jsx
 import React, { useEffect, useState } from "react";
-import { Navigate, Route } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import axios from "axios";
 
-const ProtectedRoute = ({ element: Component, ...rest }) => {
+export default function ProtectedRoute({ element: Component, admin, ...rest }) {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -22,7 +22,7 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
           "http://localhost:8001/users/verify/admin",
           {
             headers: {
-              Authorization: token,
+              authorization: `${token}`,
             },
           }
         );
@@ -41,17 +41,11 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
     };
 
     verifyToken();
-  }, []);
+  }, [location.pathname]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated ? (
-    <Route {...rest} element={<Component />} />
-  ) : (
-    <Navigate to="/login" replace />
-  );
-};
-
-export default ProtectedRoute;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+}

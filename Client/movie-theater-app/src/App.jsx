@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./Pages/HomePage/HomePage";
@@ -9,6 +10,7 @@ import AddMoviePage from "./Pages/AdminPage/MoviesManagement/AddMoviePage/AddMov
 import EditMoviePage from "./Pages/AdminPage/MoviesManagement/EditMoviePage/EditMoviePage";
 import SchedulePage from "./Pages/AdminPage/SchedulePage/SchedulePage";
 import AddSchedulePage from "./Pages/AdminPage/SchedulePage/AddSchedulePage/AddSchedulePage";
+import ProtectedRoute from "./Routes/ProtectedRoute";
 
 function App() {
   return (
@@ -18,12 +20,14 @@ function App() {
         <Route path="/movie_order/:id" element={<MovieOrderPage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/admin" element={<AdminPage />}>
-          <Route path="movies" element={<MoviesManagement />} />
-          <Route path="movies/add" element={<AddMoviePage />} />
-          <Route path="movies/edit/:id" element={<EditMoviePage />} />
-          <Route path="schedule" element={<SchedulePage />} />
-          <Route path="schedule/add" element={<AddSchedulePage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<AdminPage />}>
+            <Route path="movies" element={<MoviesManagement />} />
+            <Route path="movies/add" element={<AddMoviePage />} />
+            <Route path="movies/edit/:id" element={<EditMoviePage />} />
+            <Route path="schedule" element={<SchedulePage />} />
+            <Route path="schedule/add" element={<AddSchedulePage />} />
+          </Route>
         </Route>
       </Routes>
     </div>
