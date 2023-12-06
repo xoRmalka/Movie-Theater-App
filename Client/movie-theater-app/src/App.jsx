@@ -7,6 +7,8 @@ import AdminPage from "./Pages/AdminPage/AdminPage";
 import MoviesManagement from "./Pages/AdminPage/MoviesManagement/MoviesManagement";
 import AddMoviePage from "./Pages/AdminPage/MoviesManagement/AddMoviePage/AddMoviePage";
 import EditMoviePage from "./Pages/AdminPage/MoviesManagement/EditMoviePage/EditMoviePage";
+import SchedulePage from "./Pages/AdminPage/SchedulePage/SchedulePage";
+import AddSchedulePage from "./Pages/AdminPage/SchedulePage/AddSchedulePage/AddSchedulePage";
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
           <Route path="movies" element={<MoviesManagement />} />
           <Route path="movies/add" element={<AddMoviePage />} />
           <Route path="movies/edit/:id" element={<EditMoviePage />} />
-
+          <Route path="schedule" element={<SchedulePage />} />
+          <Route path="schedule/add" element={<AddSchedulePage />} />
         </Route>
       </Routes>
     </div>
